@@ -4,9 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Book Sorter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Library Book Sorter</h1>
-    <p>Upload a file to sort the library books by call numbers.</p>
+    <h1>Upload Library Inventory Spreadsheet</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if sorted_file_url %}
+    <h2>Download the Sorted File</h2>
+    <a href="{{ sorted_file_url }}" download>Download Sorted File</a>
+    {% endif %}
 </body>
 </html>
