@@ -9,49 +9,67 @@ app.config['UPLOAD_FOLDER'] = 'uploads/'
 import pandas as pd
 import re
 
+def preprocess_call_number(call_number):
+    call_number = call_number.strip()
+    
+    # Detect if a decimal is misplaced by ensuring it follows a digit
+    call_number = re.sub(r'(\d)(\s*\.\s*)([A-Za-z])', r'\1\2\3', call_number)  # Fix misplaced decimals
+    call_number = re.sub(r'(\d)(\s*\.\s*)(\d)', r'\1\2\3', call_number)  # Fix misplaced decimals in numeric parts
+
+    # Normalize call numbers: remove extra spaces before/after decimal and between components
+    call_number = re.sub(r'\s+', ' ', call_number)
+    return call_number
+
 def extract_segments(df):
     # Identify the first column
     first_column = df.columns[0]
     
     def extract_class_letters(call_number):
-        return re.match(r"^[A-Za-z]+", call_number).group(0) if re.match(r"^[A-Za-z]+", call_number) else ""
+        call_number = preprocess_call_number(call_number)
+        return re.match(r"^[A-Z]+", call_number).group(0) if re.match(r"^[A-Z]+", call_number) else ""
 
     def extract_class_number(call_number):
-        match = re.search(r"[A-Za-z]+([0-9]+(?:\.[0-9]+)?)", call_number)
+        call_number = preprocess_call_number(call_number)
+        match = re.search(r"([0-9]+(?:\.[0-9]+)?)", call_number)
         if match:
             try:
                 # Convert to float first, then to int if possible
-                return int(float(match.group(1)))
+                return float(match.group(1))
             except ValueError:
                 return None
         return None
 
     def extract_first_cutter(call_number):
-        match = re.search(r"\s?\.([A-Za-z]+[0-9]*)", call_number)
+        call_number = preprocess_call_number(call_number)
+        match = re.search(r"\.([A-Z]+[0-9]*)", call_number)
         return match.group(1) if match else ""
 
     def extract_second_cutter(call_number):
-        match = re.search(r"\s([A-Za-z0-9]+)\s?[0-9]{4}", call_number)
+        call_number = preprocess_call_number(call_number)
+        match = re.search(r"\s([A-Z0-9]+)\s?\d{4}", call_number)
         return match.group(1) if match else ""
 
     def extract_year(call_number):
-        match = re.search(r"\b(19\d{2}|20\d{2})\b", call_number)
+        call_number = preprocess_call_number(call_number)
+        match = re.search(r"(19\d{2}|20\d{2})", call_number)
         return int(match.group(1)) if match else None
 
     def extract_volume_number(call_number):
-        match = re.search(r"(?:vol\.|no\.)\s?([0-9]+)", call_number)
+        call_number = preprocess_call_number(call_number)
+        match = re.search(r"(?:vol\.|no\.)\s?(\d+)", call_number, re.IGNORECASE)
         if match:
             try:
-                return int(float(match.group(1)))
+                return int(match.group(1))
             except ValueError:
                 return None
         return None
 
     def extract_copy_number(call_number):
-        match = re.search(r"c\.\s?\[?([0-9]+)\]?", call_number)
+        call_number = preprocess_call_number(call_number)
+        match = re.search(r"c\.\s?\[?(\d+)\]?", call_number, re.IGNORECASE)
         if match:
             try:
-                return int(float(match.group(1)))
+                return int(match.group(1))
             except ValueError:
                 return None
         return None
