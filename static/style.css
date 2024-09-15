@@ -1,84 +1,219 @@
-/* Global Styles */
+/* General Styles */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ecf0f1;
+    background-color: #f4f4f9;
     color: #2c3e50;
+    line-height: 1.6;
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
+/* Header */
+.header {
+    background: linear-gradient(135deg, #3498db, #8e44ad);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    border-bottom: 5px solid #2980b9;
+}
+
+.header h1 {
+    font-size: 2.8em;
+    margin: 0;
+    font-weight: 700;
+}
+
+.header p {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/* Hero Section */
+.hero-content {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+/* How It Works Section */
+.how-it-works {
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    padding: 30px 20px;
     text-align: center;
 }
 
-h1 {
-    color: #3498db;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
+.how-it-works h2 {
+    font-size: 2.4em;
+    margin-bottom: 30px;
+    color: #34495e;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 280px;
+    transition: transform 0.3s ease;
+}
+
+.card h3 {
+    color: #2980b9;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+}
+
+.card p {
+    color: #7f8c8d;
+    font-size: 1.1em;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Upload Section */
+#upload-section {
+    background-color: #ecf0f1;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.flashcard {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.flashcard h2 {
+    font-size: 2.2em;
+    color: #34495e;
     margin-bottom: 20px;
 }
 
-input[type="file"] {
-    display: block;
-    margin: 20px auto;
-    padding: 10px;
-    border: 2px solid #3498db;
-    border-radius: 5px;
-    background-color: #ffffff;
-    font-size: 16px;
+.flashcard p {
+    color: #7f8c8d;
+    font-size: 1.2em;
 }
 
-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
+.flashcard:hover {
+    transform: translateY(-10px);
+}
+
+/* Drop Area */
+#drop-area {
+    border: 2px dashed #3498db;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    color: #7f8c8d;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+#drop-area:hover {
+    background-color: #ecf0f1;
+}
+
+#fileElem {
+    display: none;
+}
+
+#file-label {
+    font-size: 1.2em;
+    color: #3498db;
+    cursor: pointer;
+}
+
+#file-chosen {
+    font-size: 1.1em;
+    color: #2c3e50;
+    margin-top: 10px;
+}
+
+.upload-btn, .download-btn {
+    display: inline-block;
     background-color: #3498db;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 20px;
+    text-decoration: none;
 }
 
-button:hover {
+.upload-btn:hover, .download-btn:hover {
     background-color: #2980b9;
 }
 
-a {
-    display: inline-block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #2ecc71;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+#upload-message {
+    font-size: 1.1em;
+    color: #27ae60;
+    margin-top: 15px;
 }
 
-a:hover {
-    background-color: #27ae60;
+
+
+
+.header {
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
 }
 
-#progress-container {
-    display: none;
-    margin: 20px auto;
-    width: 80%;
-    background-color: #ffffff;
-    border-radius: 5px;
+.flashcard {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-#progress-bar {
-    height: 25px;
-    background-color: #3498db;
-    width: 0%;
+.drop-area {
+    border: 2px dashed #ddd;
+    padding: 20px;
     border-radius: 5px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
 }
+
+#file-label {
+    display: block;
+    font-size: 1.2em;
+    color: #333;
+}
+
+#file-chosen {
+    margin-top: 10px;
+    color: #666;
+}
+
+
+
+.upload-message {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #4CAF50;
+}
+
+
+

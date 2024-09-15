@@ -1,27 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Book Sorter</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Library Book Sorter</h1>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" required>
-            <button type="submit">Upload File</button>
-        </form>
-        {% if sorted_file_url %}
-        <a href="{{ sorted_file_url }}" download>Download Sorted File</a>
-        {% endif %}
-        <div id="progress-container">
-            <div id="progress-bar"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div>
+            <h1>Call Number Sorting Tool for Library Management</h1>
+            <p>Effortlessly Organize Your Library Inventory</p>
         </div>
-    </div>
-    
+    </header>
+
+    <!-- Upload Section -->
+    <section id="upload-section">
+        <div class="flashcard">
+            <h2>Sort Your Library File</h2>
+            <p>Simply upload your Excel file, and we’ll take care of the sorting for you.</p>
+
+            <!-- Upload Form -->
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div id="drop-area" class="drop-area">
+                    <label for="fileElem" id="file-label">Choose a file or drag it here</label>
+                    <input type="file" id="fileElem" name="file" accept=".xlsx" required>
+                    <p id="file-chosen">No file chosen</p>
+                </div>
+                <input type="submit" value="Upload" class="upload-btn" />
+            </form>
+
+            <p id="upload-message" class="upload-message" style="display: none;">File uploaded successfully!</p>
+            <a id="download-link" href="#" download class="download-btn" style="display: none;">Download Sorted File</a>
+            {% if sorted_file_url %}
+            <h3>Download the Sorted File</h3>
+            <a href="{{ sorted_file_url }}" download class="download-btn">Download Sorted File</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3>Step 1: Upload File</h3>
+                <p>Upload your Excel sheet containing library inventory details with call numbers.</p>
+            </div>
+            <div class="card">
+                <h3>Step 2: Automated Sorting</h3>
+                <p>Our system automatically processes and organizes the call numbers into the correct order.</p>
+            </div>
+            <div class="card">
+                <h3>Step 3: Download File</h3>
+                <p>Download the sorted file and integrate it back into your library system.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let fileInput = document.getElementById('fileElem');
+            let fileChosen = document.getElementById('file-chosen');
+            let uploadMessage = document.getElementById('upload-message');
+            let downloadLink = document.getElementById('download-link');
+
+            fileInput.addEventListener('change', (e) => {
+                if (fileInput.files.length > 0) {
+                    fileChosen.textContent = fileInput.files[0].name;
+                }
+            });
+
+            // Example function to show upload message (should be called after upload is successful)
+            function showUploadMessage() {
+                uploadMessage.style.display = 'block';
+            }
+
+            // Example function to show download link (should be called after file is sorted)
+            function showDownloadLink(url) {
+                downloadLink.href = url;
+                downloadLink.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>
